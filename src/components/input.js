@@ -1,9 +1,9 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-const Input = ({ label, name, handleChange, type, value }) => {
+const Input = ({ label, name, handleChange, type, value, error }) => {
   return (
-    <div>
+    <div className="form-group">
       <Form.Label>{label}</Form.Label>
       <input
         name={name}
