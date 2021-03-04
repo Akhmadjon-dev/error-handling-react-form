@@ -16,9 +16,24 @@ export default class FormComponent extends Component {
     password: Joi.string().required().label("Password"),
   };
 
+  validateProperty = ({ name, value }) => {
+    if (name === "username") {
+      if (value.trim() === "") return "Username is required";
+    }
+    if (name === "password") {
+      if (value.trim() === "") return "Password is required";
+    }
+  };
   /// input handler
   handleChange = ({ target: input }) => {
-    console.log(input.name, "input");
+    const errors = { ...this.state.errors };
+    const errorMsg = this.validateProperty(input);
+
+    if (errorMsg) errors[input.name] = errorMsg;
+    else delete errors[input.name];
+
+    console.log(errors, "input");
+
     const account = { ...this.state.account };
     account[input.name] = input.value;
     this.setState({ account });
@@ -57,7 +72,6 @@ export default class FormComponent extends Component {
     console.log("submitted");
   };
   render() {
-    console.log(this.state.account);
     const { account, errors } = this.state;
     return (
       <div className="form">
