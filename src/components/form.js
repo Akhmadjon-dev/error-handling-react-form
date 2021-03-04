@@ -1,30 +1,45 @@
-import { Button } from "bootstrap";
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 export default class FormComponent extends Component {
   state = {
     account: { username: "", password: "" },
   };
+
+  /// input handler
+  handleChange = ({ currentTarget: input }) => {
+    const account = { ...this.state.account };
+    account[input.name] = input.value;
+    this.setState({ account });
+  };
+
+  // handling form submit
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("submitted");
+  };
   render() {
     return (
       <div className="form">
-        <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group controlId="formBasicUsername">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              onChange={this.handleChange}
+              type="name"
+              placeholder="Enter userName"
+            />
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control
+              onChange={this.handleChange}
+              type="password"
+              placeholder="Password"
+            />
           </Form.Group>
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
+
           <Button variant="primary" type="submit">
             Submit
           </Button>
