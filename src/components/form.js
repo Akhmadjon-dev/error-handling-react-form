@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
+import Joi from "joi-browser";
 import Input from "./input";
 
 export default class FormComponent extends Component {
@@ -8,6 +9,11 @@ export default class FormComponent extends Component {
     errors: {
       // username: "Username is required.",
     },
+  };
+
+  schema = {
+    username: Joi.string().required(),
+    password: Joi.string().required(),
   };
 
   /// input handler
@@ -19,6 +25,10 @@ export default class FormComponent extends Component {
   };
 
   validate = () => {
+    const result = Joi.validate(this.state.account, this.schema, {
+      abortEarly: false,
+    });
+    console.log(result, "joiiiii");
     const errors = {};
     const { account } = this.state;
     if (account.username.trim() === "")
