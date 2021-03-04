@@ -7,7 +7,8 @@ export default class FormComponent extends Component {
   };
 
   /// input handler
-  handleChange = ({ currentTarget: input }) => {
+  handleChange = ({ target: input }) => {
+    console.log(input.name, "input");
     const account = { ...this.state.account };
     account[input.name] = input.value;
     this.setState({ account });
@@ -19,26 +20,27 @@ export default class FormComponent extends Component {
     console.log("submitted");
   };
   render() {
+    console.log(this.state.account);
     return (
       <div className="form">
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="formBasicUsername">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              onChange={this.handleChange}
-              type="name"
-              placeholder="Enter userName"
-            />
-          </Form.Group>
+          <Form.Label>Username</Form.Label>
+          <input
+            name="username"
+            className="form-control"
+            onChange={this.handleChange}
+            type="name"
+            placeholder="Enter userName"
+          />
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              onChange={this.handleChange}
-              type="password"
-              placeholder="Password"
-            />
-          </Form.Group>
+          <Form.Label>Password</Form.Label>
+          <input
+            name="password"
+            className="form-control"
+            onChange={this.handleChange}
+            type="password"
+            placeholder="Password"
+          />
 
           <Button variant="primary" type="submit">
             Submit
