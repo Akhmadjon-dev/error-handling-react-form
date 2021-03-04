@@ -11,6 +11,7 @@ export default class FormComponent extends Component {
     },
   };
 
+  // schema for joi
   schema = {
     username: Joi.string().required().label("Username"),
     password: Joi.string().required().label("Password"),
@@ -20,11 +21,9 @@ export default class FormComponent extends Component {
     const obj = { [name]: value };
     const schema = { [name]: this.schema[name] };
     const { error } = Joi.validate(obj, schema);
-    console.log(schema, "ssss", error);
-    if (error) return null;
-    return error.details[0].message;
-    // return error? error.details[0].message: null
+    return error ? error?.details[0].message : null;
   };
+
   /// input handler
   handleChange = ({ target: input }) => {
     const errors = { ...this.state.errors };
@@ -33,7 +32,7 @@ export default class FormComponent extends Component {
     if (errorMsg) errors[input.name] = errorMsg;
     else delete errors[input.name];
 
-    console.log(errors, "input");
+    console.log(errors, "input", errorMsg);
 
     const account = { ...this.state.account };
     account[input.name] = input.value;
