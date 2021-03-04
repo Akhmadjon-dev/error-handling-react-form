@@ -10,16 +10,31 @@ export default class FormComponent extends Component {
     },
   };
 
-  /// input handler
-  handleChange = ({ target: input }) => {
-    console.log(input.name, "input");
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    this.setState({ account });
+  validateProperty = ({ name, value }) => {
+    if (name === "username") {
+      if (value.trim() === "") return "Username is required";
+    }
+    if (name === "password") {
+      if (value.trim() === "") return "Password is required";
+    }
   };
-
   validate = () => {
     return { username: "username is requird" };
+  };
+  /// input handler
+  handleChange = ({ target: input }) => {
+    const errors = { ...this.state.errors };
+    const errorMsg = this.validateProperty(input);
+
+    if (errorMsg) errors[input.name] = errorMsg;
+    else delete errors[input.name];
+
+    console.log(errors, "input");
+
+    const account = { ...this.state.account };
+    account[input.name] = input.value;
+
+    this.setState({ account, errors });
   };
 
   // handling form submit
@@ -32,7 +47,6 @@ export default class FormComponent extends Component {
     console.log("submitted");
   };
   render() {
-    console.log(this.state.account);
     const { account } = this.state;
     return (
       <div className="form">
