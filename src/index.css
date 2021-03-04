@@ -19,3 +19,7 @@ code {
   width: 500px;
   margin: auto;
 }
+
+.form-group{
+  margin: 15px 0px  !important;
+}
