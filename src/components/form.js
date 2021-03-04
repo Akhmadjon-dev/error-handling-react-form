@@ -19,7 +19,14 @@ export default class FormComponent extends Component {
   };
 
   validate = () => {
-    return { username: "username is requird" };
+    const errors = {};
+    const { account } = this.state;
+    if (account.username.trim() === "")
+      errors.username = "Username is required";
+    if (account.password.trim() === "")
+      errors.password = "Password is required";
+
+    return Object.keys(errors).length === 0 ? null : errors;
   };
 
   // handling form submit
@@ -27,13 +34,14 @@ export default class FormComponent extends Component {
     e.preventDefault();
 
     const errors = this.validate();
-    this.setState({ errors });
+    console.log(errors);
+    this.setState({ errors: errors || {} });
     if (errors) return;
     console.log("submitted");
   };
   render() {
     console.log(this.state.account);
-    const { account } = this.state;
+    const { account, errors } = this.state;
     return (
       <div className="form">
         <Form onSubmit={this.handleSubmit}>
@@ -43,6 +51,7 @@ export default class FormComponent extends Component {
             handleChange={this.handleChange}
             value={account.username}
             name="username"
+            error={errors.username}
           />
           <Input
             label="Password"
@@ -50,6 +59,7 @@ export default class FormComponent extends Component {
             handleChange={this.handleChange}
             value={account.password}
             name="password"
+            error={errors.password}
           />
 
           <Button variant="primary" type="submit">
