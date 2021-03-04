@@ -35,7 +35,7 @@ export default class FormComponent extends Component {
 
     const errors = this.validate();
     console.log(errors);
-    this.setState({ errors });
+    this.setState({ errors: errors || {} });
     if (errors) return;
     console.log("submitted");
   };
