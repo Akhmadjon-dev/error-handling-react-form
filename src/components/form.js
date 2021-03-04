@@ -41,7 +41,7 @@ export default class FormComponent extends Component {
   };
   render() {
     console.log(this.state.account);
-    const { account } = this.state;
+    const { account, errors } = this.state;
     return (
       <div className="form">
         <Form onSubmit={this.handleSubmit}>
@@ -51,6 +51,7 @@ export default class FormComponent extends Component {
             handleChange={this.handleChange}
             value={account.username}
             name="username"
+            error={errors.username}
           />
           <Input
             label="Password"
@@ -58,6 +59,7 @@ export default class FormComponent extends Component {
             handleChange={this.handleChange}
             value={account.password}
             name="password"
+            error={errors.password}
           />
 
           <Button variant="primary" type="submit">

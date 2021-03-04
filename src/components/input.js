@@ -13,6 +13,7 @@ const Input = ({ label, name, handleChange, type, value, error }) => {
         type={type}
         placeholder={`Enter ${name}`}
       />
+      {error && <div className="alert alert-danger">{error}</div>}
     </div>
   );
 };
