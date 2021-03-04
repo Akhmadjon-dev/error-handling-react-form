@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
+import Input from "./input";
 
 export default class FormComponent extends Component {
   state = {
     account: { username: "", password: "" },
+    errors: {
+      // username: "Username is required.",
+    },
   };
 
   /// input handler
@@ -14,32 +18,38 @@ export default class FormComponent extends Component {
     this.setState({ account });
   };
 
+  validate = () => {
+    return { username: "username is requird" };
+  };
+
   // handling form submit
   handleSubmit = (e) => {
     e.preventDefault();
+
+    const errors = this.validate();
+    this.setState({ errors });
+    if (errors) return;
     console.log("submitted");
   };
   render() {
     console.log(this.state.account);
+    const { account } = this.state;
     return (
       <div className="form">
         <Form onSubmit={this.handleSubmit}>
-          <Form.Label>Username</Form.Label>
-          <input
-            name="username"
-            className="form-control"
-            onChange={this.handleChange}
+          <Input
+            label="Username"
             type="name"
-            placeholder="Enter userName"
+            handleChange={this.handleChange}
+            value={account.username}
+            name="username"
           />
-
-          <Form.Label>Password</Form.Label>
-          <input
-            name="password"
-            className="form-control"
-            onChange={this.handleChange}
+          <Input
+            label="Password"
             type="password"
-            placeholder="Password"
+            handleChange={this.handleChange}
+            value={account.password}
+            name="password"
           />
 
           <Button variant="primary" type="submit">
