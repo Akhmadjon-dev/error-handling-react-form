@@ -42,7 +42,7 @@ export default class Login extends FormComponent {
             error={errors.password}
           />
 
-          <Button variant="primary" type="submit">
+          <Button disabled={this.validate()} variant="primary" type="submit">
             Submit
           </Button>
         </Form>
