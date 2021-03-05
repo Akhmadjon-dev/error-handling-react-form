@@ -41,10 +41,7 @@ export default class Login extends FormComponent {
             name="password"
             error={errors.password}
           />
-
-          <Button disabled={this.validate()} variant="primary" type="submit">
-            Submit
-          </Button>
+          {this.renderBtn("Login")}
         </Form>
       </div>
     );

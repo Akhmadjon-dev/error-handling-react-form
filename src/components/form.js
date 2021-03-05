@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
+import { Button } from "react-bootstrap";
 export default class Form extends Component {
   state = {
     data: {},
@@ -60,4 +61,9 @@ export default class Form extends Component {
     // cal server methods
     this.doSubmit();
   };
+  renderBtn = (label) => (
+    <Button disabled={this.validate()} variant="primary" type="submit">
+      {label}
+    </Button>
+  );
 }
